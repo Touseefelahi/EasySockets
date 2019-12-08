@@ -64,64 +64,68 @@ namespace Stira.Socket.Models
                 return replyPacket;
             }
 
-            using TcpClient client = new TcpClient
+            using (TcpClient client = new TcpClient
             {
                 ReceiveTimeout = rxTimeout,
                 SendTimeout = txTimeout
-            };
-
-            try
+            })
             {
-                IAsyncResult connectResult = client.BeginConnect(IP, Port, null, null);
-                replyPacket.IPSender = IP;
-                replyPacket.PortSender = Port;
-                Task<bool> connectionTask = new Task<bool>(() =>
-                connectResult.AsyncWaitHandle.WaitOne(TimeSpan.FromMilliseconds(connectionTimeout)));
-                connectionTask.Start();
-
-                if (await connectionTask.ConfigureAwait(false))
+                try
                 {
-                    using NetworkStream stream = client.GetStream();
-                    await stream.WriteAsync(inputCommand, 0, inputCommand.Length).ConfigureAwait(false);
-                    stream.Flush();
-                    replyPacket.IsSent = true;
-                    fireOnSent?.Invoke(replyPacket.IsSent);
-                    if (isReplyRequired)
+                    IAsyncResult connectResult = client.BeginConnect(IP, Port, null, null);
+                    replyPacket.IPSender = IP;
+                    replyPacket.PortSender = Port;
+                    Task<bool> connectionTask = new Task<bool>(() =>
+                    connectResult.AsyncWaitHandle.WaitOne(TimeSpan.FromMilliseconds(connectionTimeout)));
+                    connectionTask.Start();
+
+                    if (await connectionTask.ConfigureAwait(false))
                     {
-                        //Reading The first byte for the sake of timeout
-                        byte[] reply = new byte[1];
-                        await stream.ReadAsync(reply, 0, 1).ConfigureAwait(false);
-                        byte[] replyComplete = null;
+                        using (NetworkStream stream = client.GetStream())
+                        {
+                            await stream.WriteAsync(inputCommand, 0, inputCommand.Length).ConfigureAwait(false);
+                            stream.Flush();
+                            replyPacket.IsSent = true;
+                            fireOnSent?.Invoke(replyPacket.IsSent);
+                            if (isReplyRequired)
+                            {
+                                //Reading The first byte for the sake of timeout
+                                byte[] reply = new byte[1];
+                                await stream.ReadAsync(reply, 0, 1).ConfigureAwait(false);
+                                byte[] replyComplete = null;
 
-                        //Reading rest of the bytes
-                        if (stream.DataAvailable)
-                        {
-                            replyComplete = new byte[client.Available + 1];
-                            replyComplete[0] = reply[0];
-                            await stream.ReadAsync(replyComplete, 1, replyComplete.Length - 1).ConfigureAwait(false);
-                        }
+                                //Reading rest of the bytes
+                                if (stream.DataAvailable)
+                                {
+                                    replyComplete = new byte[client.Available + 1];
+                                    replyComplete[0] = reply[0];
+                                    await stream.ReadAsync(replyComplete, 1, replyComplete.Length - 1).ConfigureAwait(false);
+                                }
 
-                        if (replyComplete != null)
-                        {
-                            replyPacket.SetReply(replyComplete);
-                            replyPacket.IsSentAndReplyReceived = true;
-                        }
-                        else
-                        {
-                            replyPacket.Error = "Unable to read from remote address";
+                                if (replyComplete != null)
+                                {
+                                    replyPacket.SetReply(replyComplete);
+                                    replyPacket.IsSentAndReplyReceived = true;
+                                }
+                                else
+                                {
+                                    replyPacket.Error = "Unable to read from remote address";
+                                }
+                            }
                         }
                     }
+                    else
+                    {
+                        fireOnSent?.Invoke(replyPacket.IsSent);
+                        replyPacket.Error = "Connection TimeOut/Server Not Found";
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    fireOnSent?.Invoke(replyPacket.IsSent);
-                    replyPacket.Error = "Connection TimeOut/Server Not Found";
+                    replyPacket.Error = ex.Message;
                 }
             }
-            catch (Exception ex)
-            {
-                replyPacket.Error = ex.Message;
-            }
+
             return replyPacket;
         }
 
@@ -139,11 +143,13 @@ namespace Stira.Socket.Models
         {
             try
             {
-                using UdpClient socket = new UdpClient();
-                socket.Connect(IP, Port);
-                socket.Client.ReceiveTimeout = rxTimeOut;
-                socket.Client.SendTimeout = txTimeOut;
-                return await SendUdpAsync(socket, bytes2Send, replyRequired).ConfigureAwait(false);
+                using (UdpClient socket = new UdpClient())
+                {
+                    socket.Connect(IP, Port);
+                    socket.Client.ReceiveTimeout = rxTimeOut;
+                    socket.Client.SendTimeout = txTimeOut;
+                    return await SendUdpAsync(socket, bytes2Send, replyRequired).ConfigureAwait(false);
+                }
             }
             catch (Exception ex)
             {

@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using Stira.Socket.Interfaces;
+using System.Collections.Generic;
 
 namespace Stira.Socket.Models
 {
-    public class ReplyPacket
+    public class ReplyPacket : IReplyPacket
     {
         /// <summary>
         /// Error to display if any
