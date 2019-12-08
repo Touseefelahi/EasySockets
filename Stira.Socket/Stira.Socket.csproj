@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Touseef</Authors>
+    <Company>Stira.sa</Company>
+    <Description>Simple TCP/UDP sockets with easier interface</Description>
+    <RepositoryUrl>https://github.com/Touseefelahi/EasySockets</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
+    <PackageTags>Sockets, TCP, UDP</PackageTags>
+    <!--<TargetFramework>net45</TargetFramework>-->
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Interfaces\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+</Project>
