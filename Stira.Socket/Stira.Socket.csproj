@@ -9,7 +9,7 @@
     <RepositoryUrl>https://github.com/Touseefelahi/EasySockets</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageTags>Sockets, TCP, UDP</PackageTags>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <!--<TargetFramework>net45</TargetFramework>-->
   </PropertyGroup>
 
@@ -18,5 +18,6 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Stira.WpfCore" Version="1.0.0" />
   </ItemGroup>
 </Project>
