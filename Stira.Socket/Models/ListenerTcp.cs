@@ -38,6 +38,10 @@ namespace Stira.Socket.Models
             Port = port; return StartListener();
         }
 
+        /// <summary>
+        /// Returns the current status of listener
+        /// </summary>
+        /// <returns></returns>
         public bool StartListener()
         {
             if (IsListening) return IsListening;
@@ -110,10 +114,20 @@ namespace Stira.Socket.Models
             return IsListening;
         }
 
+        /// <summary>
+        /// Returns the current status of Listener
+        /// </summary>
+        /// <returns></returns>
         public bool StopListener()
         {
-            IsListening = false;
-            listener.Server.Close();
+            try
+            {
+                listener.Server.Close();
+                IsListening = false;
+            }
+            catch (Exception)
+            {
+            }
             return IsListening;
         }
     }

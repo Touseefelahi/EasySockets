@@ -1,0 +1,184 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Stira.Socket</name>
+    </assembly>
+    <members>
+        <member name="T:Stira.Socket.Interfaces.IListenerTcp">
+            <summary>
+            TCP server
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Interfaces.IReplyPacket.Error">
+            <summary>
+            Error to display if any
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Interfaces.IReplyPacket.IPSender">
+            <summary>
+            IP address of the sender
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Interfaces.IReplyPacket.IsSent">
+            <summary>
+            Command sent
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Interfaces.IReplyPacket.IsSentAndReplyReceived">
+            <summary>
+            Command Sent and camera replied
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Interfaces.IReplyPacket.PortSender">
+            <summary>
+            Sending Port
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Interfaces.IReplyPacket.Reply">
+            <summary>
+            Raw reply packet
+            </summary>
+        </member>
+        <member name="M:Stira.Socket.Interfaces.ISendable.SendTcpAsync(System.Byte[],System.Boolean,System.Int32,System.Int32,System.Int32,System.Action{System.Boolean})">
+            <summary>
+            This is generic function which will send TCP command to specific IP, port and return the
+            reply if required
+            </summary>
+            <param name="inputCommand">Commnad to be sent</param>
+            <param name="isReplyRequired">Wait for reply?</param>
+            <param name="txTimeout">Transmission timeout (ms)</param>
+            <param name="rxTimeout">Receive timeout (ms)</param>
+            <param name="connectionTimeout">Connection timeout (ms)</param>
+            <param name="fireOnSent">Fires event on packet sent</param>
+            <returns>Reply packet</returns>
+        </member>
+        <member name="M:Stira.Socket.Interfaces.ISendable.SendUdpAsync(System.Byte[],System.Boolean,System.Int32,System.Int32)">
+            <summary>
+            This is generic function which will send UDP command to specific IP, port and return the
+            reply if required
+            </summary>
+            <param name="bytes2Send"></param>
+            <param name="replyRequired"></param>
+            <param name="txTimeOut"></param>
+            <param name="rxTimeOut"></param>
+            <returns>Reply packet</returns>
+        </member>
+        <member name="T:Stira.Socket.Models.ListenerTcp">
+            <summary>
+            TCP Server
+            </summary>
+        </member>
+        <member name="M:Stira.Socket.Models.ListenerTcp.StartListener">
+            <summary>
+            Returns the current status of listener
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Stira.Socket.Models.ListenerTcp.StopListener">
+            <summary>
+            Returns the current status of Listener
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Stira.Socket.Models.ReplyPacket.Error">
+            <summary>
+            Error to display if any
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Models.ReplyPacket.IPSender">
+            <summary>
+            IP address of the sender
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Models.ReplyPacket.IsSent">
+            <summary>
+            Command sent
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Models.ReplyPacket.IsSentAndReplyReceived">
+            <summary>
+            Command Sent and camera replied
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Models.ReplyPacket.PortSender">
+            <summary>
+            Sending Port
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Models.ReplyPacket.Reply">
+            <summary>
+            Raw reply packet
+            </summary>
+        </member>
+        <member name="M:Stira.Socket.Models.Transceiver.SendTcpAsync(System.Byte[],System.Boolean,System.Action{System.Boolean})">
+            <summary>
+            This is generic function which will send TCP command to specific IP, port and return the
+            /// reply if required [This method will use the default timeouts]
+            </summary>
+            <param name="inputCommand">Commnad to be sent</param>
+            <param name="isReplyRequired">Wait for reply?</param>
+            <param name="fireOnSent">Fires event on packet sent</param>
+            <returns>Reply packet</returns>
+        </member>
+        <member name="M:Stira.Socket.Models.Transceiver.SendTcpAsync(System.Byte[],System.Boolean,System.Int32,System.Int32,System.Int32,System.Action{System.Boolean})">
+            <summary>
+            This is generic function which will send TCP command to specific IP, port and return the
+            reply if required
+            </summary>
+            <param name="inputCommand">Commnad to be sent</param>
+            <param name="isReplyRequired">Wait for reply?</param>
+            <param name="txTimeout">Transmission timeout (ms)</param>
+            <param name="rxTimeout">Receive timeout (ms)</param>
+            <param name="connectionTimeout">Connection timeout (ms)</param>
+            <param name="fireOnSent">Fires event on packet sent</param>
+            <returns>Reply packet</returns>
+        </member>
+        <member name="M:Stira.Socket.Models.Transceiver.SendUdpAsync(System.Byte[],System.Boolean,System.Int32,System.Int32)">
+            <summary>
+            This is generic function which will send UDP command to specific IP, port and return the
+            reply if required
+            </summary>
+            <param name="bytes2Send"></param>
+            <param name="replyRequired"></param>
+            <param name="txTimeOut"></param>
+            <param name="rxTimeOut"></param>
+            <returns>Reply packet</returns>
+        </member>
+        <member name="M:Stira.Socket.Models.Transceiver.SendUdpAsync(System.Net.Sockets.UdpClient,System.Byte[],System.Boolean)">
+            <summary>
+            This is generic function which will send UDP command to specific IP, port and return the
+            reply if required
+            </summary>
+            <param name="socket">Socket - must be initialized</param>
+            <param name="bytes2Send">Bytes to send to the given socket</param>
+            <param name="replyRequired">Is reply required?</param>
+            <returns>Reply packet</returns>
+        </member>
+        <member name="M:Stira.Socket.Services.Conversion.ByteArrayToString(System.Byte[],System.String)">
+            <summary>
+            Converts byte array to string array, normal conversions like ethernet packet to display
+            able string
+            </summary>
+            <param name="byteArray">Input Byte array to be converted</param>
+            <param name="sperator">Seprator string</param>
+            <returns>String</returns>
+        </member>
+        <member name="M:Stira.Socket.Services.Conversion.ByteArrayToString(System.Collections.Generic.List{System.Byte},System.String)">
+            <summary>
+            Converts byte array to string array, normal conversions like ethernet packet to display
+            able string
+            </summary>
+            <param name="byteList">Input Byte array to be converted</param>
+            <param name="sperator">Seprator string</param>
+            <returns>String</returns>
+        </member>
+        <member name="M:Stira.Socket.ViewModels.ControlViewModel.StringToByteArray(System.String)">
+            <summary>
+            This method converts hex string to byte array e.g. "010203" or "0x01 0x02 0x03" =&gt;
+            byte[3] with 01 02 03 values
+            </summary>
+            <param name="hex"></param>
+            <returns>Byte Array</returns>
+        </member>
+    </members>
+</doc>

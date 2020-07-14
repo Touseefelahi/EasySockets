@@ -9,8 +9,15 @@
     <RepositoryUrl>https://github.com/Touseefelahi/EasySockets</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageTags>Sockets, TCP, UDP</PackageTags>
-    <Version>1.0.2</Version>
+    <Version>1.1.1</Version>
+    <PackageProjectUrl>https://github.com/Touseefelahi/EasySockets</PackageProjectUrl>
+    <PackageReleaseNotes>Tcp Listener Added</PackageReleaseNotes>
     <!--<TargetFramework>net45</TargetFramework>-->
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>D:\VisualStudioProjects\Visual Studio 2019\Nuget Packages\Stira.Socket\Stira.Socket\Stira.Socket.xml</DocumentationFile>
+    <OutputPath>D:\VisualStudioProjects\Visual Studio 2019\Nuget Packages\All Packages\</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>

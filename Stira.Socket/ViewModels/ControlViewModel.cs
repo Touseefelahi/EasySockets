@@ -1,4 +1,5 @@
-﻿using Stira.Socket.Models;
+﻿using Stira.Socket.Interfaces;
+using Stira.Socket.Models;
 using Stira.WpfCore;
 using System;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Windows.Input;
 
 namespace Stira.Socket.ViewModels
 {
-    public class ControlViewModel : BaseNotifyPropertyChanged
+    public class ControlViewModel : BaseNotifyPropertyChanged, IControlViewModel
     {
         public ControlViewModel()
         {
@@ -16,11 +17,14 @@ namespace Stira.Socket.ViewModels
                 PortTcp = 3030
             };
             SendDeveloperCommand = new DelegateCommand(DeveloperCommandToMcuAsync);
+            StartTcpListenerCommand = new DelegateCommand(ToggleTcpListener);
+            ListenerTcp = new ListenerTcp();
         }
 
         public string DeveloperCommand { get; set; }
 
         public EventHandler<ReplyPacket> DevReplyIncoming { get; set; }
+
         public EventHandler<ReplyPacket> DevSentCommandInfo { get; set; }
 
         public bool IsHex { get; set; }
@@ -28,6 +32,10 @@ namespace Stira.Socket.ViewModels
         public Mcu Mcu { get; set; }
 
         public ICommand SendDeveloperCommand { get; }
+
+        public ICommand StartTcpListenerCommand { get; }
+
+        public IListenerTcp ListenerTcp { get; }
 
         /// <summary>
         /// This method converts hex string to byte array e.g. "010203" or "0x01 0x02 0x03" =&gt;
@@ -48,6 +56,15 @@ namespace Stira.Socket.ViewModels
             }
 
             return bytes;
+        }
+
+        private void ToggleTcpListener()
+        {
+            if (ListenerTcp.IsListening)
+                ListenerTcp.StopListener();
+            else
+                ListenerTcp.StartListener();
+            OnPropertyChanged(nameof(ListenerTcp));
         }
 
         private async void DeveloperCommandToMcuAsync()
