@@ -33,7 +33,7 @@ namespace Stira.Socket.Interfaces
         /// <summary>
         /// Main controller that has the sockets
         /// </summary>
-        Mcu Mcu { get; set; }
+        IMcu Mcu { get; set; }
 
         /// <summary>
         /// Command to send the developer command from UI/Viewmodel

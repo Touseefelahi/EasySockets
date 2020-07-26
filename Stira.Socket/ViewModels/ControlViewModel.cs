@@ -51,7 +51,7 @@ namespace Stira.Socket.ViewModels
         /// <summary>
         /// Main controller that has the sockets
         /// </summary>
-        public Mcu Mcu { get; set; }
+        public IMcu Mcu { get; set; }
 
         /// <summary>
         /// Command to send the developer command from UI/Viewmodel
