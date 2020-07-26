@@ -2,6 +2,9 @@
 
 namespace Stira.Socket.Interfaces
 {
+    /// <summary>
+    /// General reply: can be used for UDP/TCP
+    /// </summary>
     public interface IReplyPacket
     {
         /// <summary>
@@ -34,8 +37,16 @@ namespace Stira.Socket.Interfaces
         /// </summary>
         List<byte> Reply { get; }
 
+        /// <summary>
+        /// It sets the list of byte
+        /// </summary>
+        /// <param name="reply"></param>
         void SetReply(byte[] reply);
 
+        /// <summary>
+        /// It sets the list of byte
+        /// </summary>
+        /// <param name="reply"></param>
         void SetReply(List<byte> reply);
     }
 }

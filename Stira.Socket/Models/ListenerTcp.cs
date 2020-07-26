@@ -15,24 +15,64 @@ namespace Stira.Socket.Models
     {
         private TcpListener listener;
 
+        /// <summary>
+        /// Initializer for TCP server
+        /// </summary>
         public ListenerTcp()
         {
             ReceiveFromThisIPAddressList = new List<string>();
         }
 
+        /// <summary>
+        /// Auto reply packet
+        /// </summary>
         public ICollection<byte> AutoReply { get; private set; }
-        public EventHandler<ReplyPacket> DataEvent { get; set; }
-        public EventHandler<Exception> ExceptionHandler { get; set; }
-        public bool IsAutoReplying { get; set; }
-        public bool IsListening { get; set; }
-        public int Port { get; set; }
-        public List<string> ReceiveFromThisIPAddressList { get; set; }
 
+        /// <summary>
+        /// Whenever it receives packet this event fires up
+        /// </summary>
+        public EventHandler<ReplyPacket> DataEvent { get; set; }
+
+        /// <summary>
+        /// This event fires up whenever there's an exception
+        /// </summary>
+        public EventHandler<Exception> ExceptionHandler { get; set; }
+
+        /// <summary>
+        /// Enables auto reply for the client
+        /// </summary>
+        public bool IsAutoReplying { get; set; }
+
+        /// <summary>
+        /// Is server is enabled/listening
+        /// </summary>
+        public bool IsListening { get; set; }
+
+        /// <summary>
+        /// Listening port
+        /// </summary>
+        public int Port { get; set; }
+
+        /// <summary>
+        /// If this list is not null then server will entertain only the IP's that are listed in
+        /// this list
+        /// </summary>
+        public ICollection<string> ReceiveFromThisIPAddressList { get; set; }
+
+        /// <summary>
+        /// Sets the auto reply packet
+        /// </summary>
+        /// <param name="autoReply"></param>
         public void SetAutoReply(byte[] autoReply)
         {
             AutoReply = autoReply;
         }
 
+        /// <summary>
+        /// Starts the server with the given port
+        /// </summary>
+        /// <param name="port"></param>
+        /// <returns></returns>
         public bool StartListener(int port)
         {
             Port = port; return StartListener();

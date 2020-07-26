@@ -7,8 +7,14 @@ using System.Windows.Input;
 
 namespace Stira.Socket.ViewModels
 {
+    /// <summary>
+    /// View model for the socket. Use Mcu class to send TCP/UDP commands from the viewmodels.
+    /// </summary>
     public class ControlViewModel : BaseNotifyPropertyChanged, IControlViewModel
     {
+        /// <summary>
+        /// Initialize the control view model
+        /// </summary>
         public ControlViewModel()
         {
             Mcu = new Mcu
@@ -21,20 +27,45 @@ namespace Stira.Socket.ViewModels
             ListenerTcp = new ListenerTcp();
         }
 
+        /// <summary>
+        /// Developer Command from the UI
+        /// </summary>
         public string DeveloperCommand { get; set; }
 
+        /// <summary>
+        /// This event will be fired when any Developer socket sends a command and receives
+        /// something from the server
+        /// </summary>
         public EventHandler<ReplyPacket> DevReplyIncoming { get; set; }
 
+        /// <summary>
+        /// This event will be fired when developer command is sent
+        /// </summary>
         public EventHandler<ReplyPacket> DevSentCommandInfo { get; set; }
 
+        /// <summary>
+        /// Hex check for developer command
+        /// </summary>
         public bool IsHex { get; set; }
 
+        /// <summary>
+        /// Main controller that has the sockets
+        /// </summary>
         public Mcu Mcu { get; set; }
 
+        /// <summary>
+        /// Command to send the developer command from UI/Viewmodel
+        /// </summary>
         public ICommand SendDeveloperCommand { get; }
 
+        /// <summary>
+        /// Command to enable TCP Listener
+        /// </summary>
         public ICommand StartTcpListenerCommand { get; }
 
+        /// <summary>
+        /// TCP Listener
+        /// </summary>
         public IListenerTcp ListenerTcp { get; }
 
         /// <summary>
@@ -91,7 +122,7 @@ namespace Stira.Socket.ViewModels
                     DevReplyIncoming?.Invoke(this, reply);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
             }
         }

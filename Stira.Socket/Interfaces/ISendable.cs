@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace Stira.Socket.Interfaces
 {
+    /// <summary>
+    /// It sends and receive UDP/TCP packets
+    /// </summary>
     public interface ISendable
     {
         /// <summary>
@@ -31,6 +34,14 @@ namespace Stira.Socket.Interfaces
         /// <returns>Reply packet</returns>
         Task<ReplyPacket> SendUdpAsync(byte[] bytes2Send, bool replyRequired = false, int txTimeOut = 1000, int rxTimeOut = 1000);
 
+        /// <summary>
+        /// This is generic function which will send UDP command to specific IP, port and return the
+        /// reply if required
+        /// </summary>
+        /// <param name="socket">Socket - must be initialized</param>
+        /// <param name="bytes2Send">Bytes to send to the given socket</param>
+        /// <param name="replyRequired">Is reply required?</param>
+        /// <returns>Reply packet</returns>
         Task<ReplyPacket> SendUdpAsync(UdpClient socket, byte[] bytes2Send, bool replyRequired = true);
     }
 }

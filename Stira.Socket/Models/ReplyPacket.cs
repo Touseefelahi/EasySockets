@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace Stira.Socket.Models
 {
+    /// <summary>
+    /// General reply: can be used for UDP/TCP
+    /// </summary>
     public class ReplyPacket : IReplyPacket
     {
         /// <summary>
@@ -35,11 +38,19 @@ namespace Stira.Socket.Models
         /// </summary>
         public List<byte> Reply { get; private set; }
 
+        /// <summary>
+        /// It sets the list of byte
+        /// </summary>
+        /// <param name="reply"></param>
         public void SetReply(byte[] reply)
         {
             Reply = new List<byte>(reply);
         }
 
+        /// <summary>
+        /// It sets the list of byte
+        /// </summary>
+        /// <param name="reply"></param>
         public void SetReply(List<byte> reply)
         {
             Reply = reply;

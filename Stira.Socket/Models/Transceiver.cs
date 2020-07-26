@@ -5,15 +5,24 @@ using System.Threading.Tasks;
 
 namespace Stira.Socket.Models
 {
+    /// <summary>
+    /// Encapsulates the UDP/TCP sockets for transmission and reception
+    /// </summary>
     public class Transceiver : ITranceiver
     {
         private const int defaultConnectionTimeout = 1000;
         private const int defaultTimeout = 500;
 
+        /// <summary>
+        /// Initializer
+        /// </summary>
         public Transceiver()
         {
         }
 
+        /// <summary>
+        /// Initializer
+        /// </summary>
         public Transceiver(string ip, int port, int timeOutTx = defaultTimeout,
             int timeOutRx = defaultTimeout, int timeoutConnection = defaultConnectionTimeout)
         {
@@ -24,10 +33,29 @@ namespace Stira.Socket.Models
             TimeoutConnection = timeoutConnection;
         }
 
+        /// <summary>
+        /// Receiver IP
+        /// </summary>
         public string IP { get; set; }
+
+        /// <summary>
+        /// Receiver Port
+        /// </summary>
         public int Port { get; set; }
+
+        /// <summary>
+        /// Connection timetout (for TCP only)
+        /// </summary>
         public int TimeoutConnection { get; set; }
+
+        /// <summary>
+        /// Receive timeout
+        /// </summary>
         public int TimeoutRx { get; set; }
+
+        /// <summary>
+        /// Transmission timeout
+        /// </summary>
         public int TimeoutTx { get; set; }
 
         /// <summary>
