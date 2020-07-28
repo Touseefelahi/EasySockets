@@ -4,9 +4,217 @@
         <name>Stira.Socket</name>
     </assembly>
     <members>
+        <member name="T:Stira.Socket.Interfaces.ITcpClient">
+            <summary>
+            TCP Client
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Interfaces.ITcpClient.DataEvent">
+            <summary>
+            Whenever it receives packet this event fires up
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Interfaces.ITcpClient.ExceptionHandler">
+            <summary>
+            This event fires up whenever there's an exception
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Interfaces.ITcpClient.Ip">
+            <summary>
+            Server IP
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Interfaces.ITcpClient.IsConnected">
+            <summary>
+            Is server is enabled/listening
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Interfaces.ITcpClient.Port">
+            <summary>
+            Server port
+            </summary>
+        </member>
+        <member name="M:Stira.Socket.Interfaces.ITcpClient.Connect(System.Byte[],System.Int32,System.Int32,System.Int32)">
+            <summary>
+            It will connect to the server
+            </summary>
+            <param name="endBytesIdentifier">
+            This identifies the end packet once receive these bytes it will push the packet. If null
+            then it pushes as it receives
+            </param>
+            <param name="connectionTimeoutMs"></param>
+            <param name="receiveTimeOut"></param>
+            <param name="transmissionTimeout"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Stira.Socket.Interfaces.ITcpClient.Connect(System.String,System.Int32,System.Byte[],System.Int32,System.Int32,System.Int32)">
+            <summary>
+            It will connect on the server with given IP and Port then listens on it
+            </summary>
+            <param name="ip">Server IP</param>
+            <param name="port">Server Port</param>
+            <param name="endBytesIdentifier">
+            This identifies the end packet once receive these bytes it will push the packet. If null
+            then it pushes as it receives
+            </param>
+            <param name="connectionTimeoutMs"></param>
+            <param name="receiveTimeOut"></param>
+            <param name="transmissionTimeout"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Stira.Socket.Interfaces.ITcpClient.Disconnect">
+            <summary>
+            Returns the current status of Listener
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Stira.Socket.Interfaces.ITcpClient.SendAsync(System.Byte[])">
+            <summary>
+            This will send the bytes to the server if connected
+            </summary>
+            <param name="bytesToSend"></param>
+            <returns>Sent Status</returns>
+        </member>
+        <member name="T:Stira.Socket.Interfaces.IControlViewModel">
+            <summary>
+            View model for the socket. Use Mcu class to send TCP/UDP commands from the viewmodels.
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Interfaces.IControlViewModel.DeveloperCommand">
+            <summary>
+            Developer Command from the UI
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Interfaces.IControlViewModel.DevReplyIncoming">
+            <summary>
+            This event will be fired when any Developer socket sends a command and receives
+            something from the server
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Interfaces.IControlViewModel.DevSentCommandInfo">
+            <summary>
+            This event will be fired when developer command is sent
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Interfaces.IControlViewModel.IsHex">
+            <summary>
+            Hex check for developer command
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Interfaces.IControlViewModel.Mcu">
+            <summary>
+            Main controller that has the sockets
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Interfaces.IControlViewModel.SendDeveloperCommand">
+            <summary>
+            Command to send the developer command from UI/Viewmodel
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Interfaces.IControlViewModel.StartTcpListenerCommand">
+            <summary>
+            Command to enable TCP Listener
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Interfaces.IControlViewModel.ListenerTcp">
+            <summary>
+            TCP Listener
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Interfaces.IControlViewModel.TcpClient">
+            <summary>
+            TCP Client
+            </summary>
+        </member>
         <member name="T:Stira.Socket.Interfaces.IListenerTcp">
             <summary>
             TCP server
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Interfaces.IListenerTcp.AutoReply">
+            <summary>
+            Auto reply packet
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Interfaces.IListenerTcp.DataEvent">
+            <summary>
+            Whenever it receives packet this event fires up
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Interfaces.IListenerTcp.ExceptionHandler">
+            <summary>
+            This event fires up whenever there's an exception
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Interfaces.IListenerTcp.IsAutoReplying">
+            <summary>
+            Enables auto reply for the client
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Interfaces.IListenerTcp.IsListening">
+            <summary>
+            Is server is enabled/listening
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Interfaces.IListenerTcp.Port">
+            <summary>
+            Listening port
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Interfaces.IListenerTcp.ReceiveFromThisIPAddressList">
+            <summary>
+            If this list is not null then server will entertain only the IP's that are listed in
+            this list
+            </summary>
+        </member>
+        <member name="M:Stira.Socket.Interfaces.IListenerTcp.SetAutoReply(System.Byte[])">
+            <summary>
+            Sets the auto reply packet
+            </summary>
+            <param name="autoReply"></param>
+        </member>
+        <member name="M:Stira.Socket.Interfaces.IListenerTcp.StartListener">
+            <summary>
+            Start the server
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Stira.Socket.Interfaces.IListenerTcp.StartListener(System.Int32)">
+            <summary>
+            Starts the server with the given port
+            </summary>
+            <param name="port"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Stira.Socket.Interfaces.IListenerTcp.StopListener">
+            <summary>
+            Stops the server/listener
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Stira.Socket.Interfaces.IMcu">
+            <summary>
+            Main controller unit
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Interfaces.IMcu.IP">
+            <summary>
+            Controller IP
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Interfaces.IMcu.PortTcp">
+            <summary>
+            Controller TCP port
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Interfaces.IMcu.PortUdp">
+            <summary>
+            Controller UDP port
+            </summary>
+        </member>
+        <member name="T:Stira.Socket.Interfaces.IReplyPacket">
+            <summary>
+            General reply: can be used for UDP/TCP
             </summary>
         </member>
         <member name="P:Stira.Socket.Interfaces.IReplyPacket.Error">
@@ -39,6 +247,23 @@
             Raw reply packet
             </summary>
         </member>
+        <member name="M:Stira.Socket.Interfaces.IReplyPacket.SetReply(System.Byte[])">
+            <summary>
+            It sets the list of byte
+            </summary>
+            <param name="reply"></param>
+        </member>
+        <member name="M:Stira.Socket.Interfaces.IReplyPacket.SetReply(System.Collections.Generic.List{System.Byte})">
+            <summary>
+            It sets the list of byte
+            </summary>
+            <param name="reply"></param>
+        </member>
+        <member name="T:Stira.Socket.Interfaces.ISendable">
+            <summary>
+            It sends and receive UDP/TCP packets
+            </summary>
+        </member>
         <member name="M:Stira.Socket.Interfaces.ISendable.SendTcpAsync(System.Byte[],System.Boolean,System.Int32,System.Int32,System.Int32,System.Action{System.Boolean})">
             <summary>
             This is generic function which will send TCP command to specific IP, port and return the
@@ -63,10 +288,186 @@
             <param name="rxTimeOut"></param>
             <returns>Reply packet</returns>
         </member>
+        <member name="M:Stira.Socket.Interfaces.ISendable.SendUdpAsync(System.Net.Sockets.UdpClient,System.Byte[],System.Boolean)">
+            <summary>
+            This is generic function which will send UDP command to specific IP, port and return the
+            reply if required
+            </summary>
+            <param name="socket">Socket - must be initialized</param>
+            <param name="bytes2Send">Bytes to send to the given socket</param>
+            <param name="replyRequired">Is reply required?</param>
+            <returns>Reply packet</returns>
+        </member>
+        <member name="T:Stira.Socket.Interfaces.ITranceiver">
+            <summary>
+            Encapsulates the UDP/TCP sockets for transmission and reception
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Interfaces.ITranceiver.IP">
+            <summary>
+            Receiver IP
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Interfaces.ITranceiver.Port">
+            <summary>
+            Receiver Port
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Interfaces.ITranceiver.TimeoutConnection">
+            <summary>
+            Connection timetout (for TCP only)
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Interfaces.ITranceiver.TimeoutRx">
+            <summary>
+            Receive timeout
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Interfaces.ITranceiver.TimeoutTx">
+            <summary>
+            Transmission timeout
+            </summary>
+        </member>
+        <member name="T:Stira.Socket.Models.EasyTcpClient">
+            <summary>
+            TCP Client
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Models.EasyTcpClient.IsConnected">
+            <summary>
+            Is server is enabled/listening
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Models.EasyTcpClient.DataEvent">
+            <summary>
+            Whenever it receives packet this event fires up
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Models.EasyTcpClient.ExceptionHandler">
+            <summary>
+            This event fires up whenever there's an exception
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Models.EasyTcpClient.Port">
+            <summary>
+            Server port
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Models.EasyTcpClient.Ip">
+            <summary>
+            Server IP
+            </summary>
+        </member>
+        <member name="M:Stira.Socket.Models.EasyTcpClient.Connect(System.Byte[],System.Int32,System.Int32,System.Int32)">
+            <summary>
+            It will connect to the server
+            </summary>
+            <param name="endBytesIdentifier">
+            This identifies the end packet once receive these bytes it will push the packet. If null
+            then it pushes as it receives
+            </param>
+            <param name="connectionTimeoutMs"></param>
+            <param name="receiveTimeOut"></param>
+            <param name="transmissionTimeout"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Stira.Socket.Models.EasyTcpClient.SendAsync(System.Byte[])">
+            <summary>
+            This will send the bytes to the server if connected
+            </summary>
+            <param name="bytesToSend"></param>
+            <returns>Sent Status</returns>
+        </member>
+        <member name="M:Stira.Socket.Models.EasyTcpClient.Connect(System.String,System.Int32,System.Byte[],System.Int32,System.Int32,System.Int32)">
+            <summary>
+            It will connect on the server with given IP and Port then listens on it
+            </summary>
+            <param name="ip">Server IP</param>
+            <param name="port">Server Port</param>
+            <param name="endBytesIdentifier">
+            This identifies the end packet once receive these bytes it will push the packet. If null
+            then it pushes as it receives
+            </param>
+            <param name="connectionTimeoutMs"></param>
+            <param name="receiveTimeOut"></param>
+            <param name="transmissionTimeout"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Stira.Socket.Models.EasyTcpClient.Disconnect">
+            <summary>
+            Returns the current status of Listener
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Stira.Socket.Models.EasyTcpClient.Dispose">
+            <summary>
+            Disposes the Tcp socket
+            </summary>
+        </member>
+        <member name="M:Stira.Socket.Models.EasyTcpClient.Dispose(System.Boolean)">
+            <summary>
+            Disposes the Tcp socket
+            </summary>
+            <param name="disposing"></param>
+        </member>
         <member name="T:Stira.Socket.Models.ListenerTcp">
             <summary>
             TCP Server
             </summary>
+        </member>
+        <member name="M:Stira.Socket.Models.ListenerTcp.#ctor">
+            <summary>
+            Initializer for TCP server
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Models.ListenerTcp.AutoReply">
+            <summary>
+            Auto reply packet
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Models.ListenerTcp.DataEvent">
+            <summary>
+            Whenever it receives packet this event fires up
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Models.ListenerTcp.ExceptionHandler">
+            <summary>
+            This event fires up whenever there's an exception
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Models.ListenerTcp.IsAutoReplying">
+            <summary>
+            Enables auto reply for the client
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Models.ListenerTcp.IsListening">
+            <summary>
+            Is server is enabled/listening
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Models.ListenerTcp.Port">
+            <summary>
+            Listening port
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Models.ListenerTcp.ReceiveFromThisIPAddressList">
+            <summary>
+            If this list is not null then server will entertain only the IP's that are listed in
+            this list
+            </summary>
+        </member>
+        <member name="M:Stira.Socket.Models.ListenerTcp.SetAutoReply(System.Byte[])">
+            <summary>
+            Sets the auto reply packet
+            </summary>
+            <param name="autoReply"></param>
+        </member>
+        <member name="M:Stira.Socket.Models.ListenerTcp.StartListener(System.Int32)">
+            <summary>
+            Starts the server with the given port
+            </summary>
+            <param name="port"></param>
+            <returns></returns>
         </member>
         <member name="M:Stira.Socket.Models.ListenerTcp.StartListener">
             <summary>
@@ -79,6 +480,70 @@
             Returns the current status of Listener
             </summary>
             <returns></returns>
+        </member>
+        <member name="T:Stira.Socket.Models.Mcu">
+            <summary>
+            Main controller unit
+            </summary>
+        </member>
+        <member name="M:Stira.Socket.Models.Mcu.#ctor">
+            <summary>
+            Main controller unit
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Models.Mcu.IP">
+            <summary>
+            Controller IP
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Models.Mcu.PortTcp">
+            <summary>
+            Controller TCP port
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Models.Mcu.PortUdp">
+            <summary>
+            Controller UDP port
+            </summary>
+        </member>
+        <member name="M:Stira.Socket.Models.Mcu.SendTcpAsync(System.Byte[],System.Boolean,System.Int32,System.Int32,System.Int32,System.Action{System.Boolean})">
+            <summary>
+            This is generic function which will send TCP command to specific IP, port and return the
+            reply if required
+            </summary>
+            <param name="inputCommand">Commnad to be sent</param>
+            <param name="isReplyRequired">Wait for reply?</param>
+            <param name="txTimeout">Transmission timeout (ms)</param>
+            <param name="rxTimeout">Receive timeout (ms)</param>
+            <param name="connectionTimeout">Connection timeout (ms)</param>
+            <param name="fireOnSent">Fires event on packet sent</param>
+            <returns>Reply packet</returns>
+        </member>
+        <member name="M:Stira.Socket.Models.Mcu.SendUdpAsync(System.Byte[],System.Boolean,System.Int32,System.Int32)">
+            <summary>
+            This is generic function which will send UDP command to specific IP, port and return the
+            reply if required
+            </summary>
+            <param name="bytes2Send"></param>
+            <param name="replyRequired"></param>
+            <param name="txTimeOut"></param>
+            <param name="rxTimeOut"></param>
+            <returns>Reply packet</returns>
+        </member>
+        <member name="M:Stira.Socket.Models.Mcu.SendUdpAsync(System.Net.Sockets.UdpClient,System.Byte[],System.Boolean)">
+            <summary>
+            This is generic function which will send UDP command to specific IP, port and return the
+            reply if required
+            </summary>
+            <param name="socket">Socket - must be initialized</param>
+            <param name="bytes2Send">Bytes to send to the given socket</param>
+            <param name="replyRequired">Is reply required?</param>
+            <returns>Reply packet</returns>
+        </member>
+        <member name="T:Stira.Socket.Models.ReplyPacket">
+            <summary>
+            General reply: can be used for UDP/TCP
+            </summary>
         </member>
         <member name="P:Stira.Socket.Models.ReplyPacket.Error">
             <summary>
@@ -108,6 +573,58 @@
         <member name="P:Stira.Socket.Models.ReplyPacket.Reply">
             <summary>
             Raw reply packet
+            </summary>
+        </member>
+        <member name="M:Stira.Socket.Models.ReplyPacket.SetReply(System.Byte[])">
+            <summary>
+            It sets the list of byte
+            </summary>
+            <param name="reply"></param>
+        </member>
+        <member name="M:Stira.Socket.Models.ReplyPacket.SetReply(System.Collections.Generic.List{System.Byte})">
+            <summary>
+            It sets the list of byte
+            </summary>
+            <param name="reply"></param>
+        </member>
+        <member name="T:Stira.Socket.Models.Transceiver">
+            <summary>
+            Encapsulates the UDP/TCP sockets for transmission and reception
+            </summary>
+        </member>
+        <member name="M:Stira.Socket.Models.Transceiver.#ctor">
+            <summary>
+            Initializer
+            </summary>
+        </member>
+        <member name="M:Stira.Socket.Models.Transceiver.#ctor(System.String,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Initializer
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Models.Transceiver.IP">
+            <summary>
+            Receiver IP
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Models.Transceiver.Port">
+            <summary>
+            Receiver Port
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Models.Transceiver.TimeoutConnection">
+            <summary>
+            Connection timetout (for TCP only)
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Models.Transceiver.TimeoutRx">
+            <summary>
+            Receive timeout
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Models.Transceiver.TimeoutTx">
+            <summary>
+            Transmission timeout
             </summary>
         </member>
         <member name="M:Stira.Socket.Models.Transceiver.SendTcpAsync(System.Byte[],System.Boolean,System.Action{System.Boolean})">
@@ -154,6 +671,29 @@
             <param name="replyRequired">Is reply required?</param>
             <returns>Reply packet</returns>
         </member>
+        <member name="T:Stira.Socket.Services.CommonUtility">
+            <summary>
+            Common utilities for IP address
+            </summary>
+        </member>
+        <member name="M:Stira.Socket.Services.CommonUtility.GetIPAddress">
+            <summary>
+            Gets the current system IP address
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Stira.Socket.Services.CommonUtility.ValidateIPv4(System.String)">
+            <summary>
+            validates the ip address
+            </summary>
+            <param name="ipString"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Stira.Socket.Services.Conversion">
+            <summary>
+            Simple conversions from one format to other
+            </summary>
+        </member>
         <member name="M:Stira.Socket.Services.Conversion.ByteArrayToString(System.Byte[],System.String)">
             <summary>
             Converts byte array to string array, normal conversions like ethernet packet to display
@@ -172,13 +712,79 @@
             <param name="sperator">Seprator string</param>
             <returns>String</returns>
         </member>
-        <member name="M:Stira.Socket.ViewModels.ControlViewModel.StringToByteArray(System.String)">
+        <member name="M:Stira.Socket.Services.Conversion.StringToByteArray(System.String)">
             <summary>
             This method converts hex string to byte array e.g. "010203" or "0x01 0x02 0x03" =&gt;
             byte[3] with 01 02 03 values
             </summary>
             <param name="hex"></param>
             <returns>Byte Array</returns>
+        </member>
+        <member name="T:Stira.Socket.ViewModels.ControlViewModel">
+            <summary>
+            View model for the socket. Use Mcu class to send TCP/UDP commands from the viewmodels.
+            </summary>
+        </member>
+        <member name="M:Stira.Socket.ViewModels.ControlViewModel.#ctor(Stira.Socket.Interfaces.IListenerTcp,Stira.Socket.Interfaces.ITcpClient,Stira.Socket.Interfaces.IMcu)">
+            <summary>
+            Initialize the control view model
+            </summary>
+        </member>
+        <member name="M:Stira.Socket.ViewModels.ControlViewModel.#ctor">
+            <summary>
+            Initialize the control view model
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.ViewModels.ControlViewModel.DeveloperCommand">
+            <summary>
+            Developer Command from the UI
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.ViewModels.ControlViewModel.DevReplyIncoming">
+            <summary>
+            This event will be fired when any Developer socket sends a command and receives
+            something from the server
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.ViewModels.ControlViewModel.DevSentCommandInfo">
+            <summary>
+            This event will be fired when developer command is sent
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.ViewModels.ControlViewModel.IsHex">
+            <summary>
+            Hex check for developer command
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.ViewModels.ControlViewModel.Mcu">
+            <summary>
+            Main controller that has the sockets
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.ViewModels.ControlViewModel.SendDeveloperCommand">
+            <summary>
+            Command to send the developer command from UI/Viewmodel
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.ViewModels.ControlViewModel.StartTcpListenerCommand">
+            <summary>
+            Command to enable TCP Listener
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.ViewModels.ControlViewModel.ConnectToTcpServerCommand">
+            <summary>
+            Connects to the server
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.ViewModels.ControlViewModel.ListenerTcp">
+            <summary>
+            TCP Listener
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.ViewModels.ControlViewModel.TcpClient">
+            <summary>
+            TCP Client
+            </summary>
         </member>
     </members>
 </doc>

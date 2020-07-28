@@ -49,5 +49,10 @@ namespace Stira.Socket.Interfaces
         /// TCP Listener
         /// </summary>
         IListenerTcp ListenerTcp { get; }
+
+        /// <summary>
+        /// TCP Client
+        /// </summary>
+        ITcpClient TcpClient { get; }
     }
 }

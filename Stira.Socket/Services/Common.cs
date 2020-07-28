@@ -4,8 +4,15 @@ using System.Net.Sockets;
 
 namespace Stira.Socket.Services
 {
+    /// <summary>
+    /// Common utilities for IP address
+    /// </summary>
     public static class CommonUtility
     {
+        /// <summary>
+        /// Gets the current system IP address
+        /// </summary>
+        /// <returns></returns>
         public static string GetIPAddress()
         {
             string localIP;
@@ -18,6 +25,11 @@ namespace Stira.Socket.Services
             return localIP;
         }
 
+        /// <summary>
+        /// validates the ip address
+        /// </summary>
+        /// <param name="ipString"></param>
+        /// <returns></returns>
         public static bool ValidateIPv4(string ipString)
         {
             if (ipString.Count(c => c == '.') != 3) return false;

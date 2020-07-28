@@ -3,7 +3,7 @@
     /// <summary>
     /// Main controller unit
     /// </summary>
-    public interface IMcu
+    public interface IMcu : ISendable
     {
         /// <summary>
         /// Controller IP

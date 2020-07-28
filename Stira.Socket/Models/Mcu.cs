@@ -1,5 +1,6 @@
 ﻿using Stira.Socket.Interfaces;
 using System;
+using System.Net.Sockets;
 using System.Threading.Tasks;
 
 namespace Stira.Socket.Models
@@ -102,6 +103,19 @@ namespace Stira.Socket.Models
         public async Task<ReplyPacket> SendUdpAsync(byte[] bytes2Send, bool replyRequired = false, int txTimeOut = 1000, int rxTimeOut = 1000)
         {
             return await udpTranceiver.SendUdpAsync(bytes2Send, replyRequired, txTimeOut, rxTimeOut).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// This is generic function which will send UDP command to specific IP, port and return the
+        /// reply if required
+        /// </summary>
+        /// <param name="socket">Socket - must be initialized</param>
+        /// <param name="bytes2Send">Bytes to send to the given socket</param>
+        /// <param name="replyRequired">Is reply required?</param>
+        /// <returns>Reply packet</returns>
+        public Task<ReplyPacket> SendUdpAsync(UdpClient socket, byte[] bytes2Send, bool replyRequired = true)
+        {
+            return udpTranceiver.SendUdpAsync(socket, bytes2Send, replyRequired);
         }
 
         private void SetTcpTransceiver()

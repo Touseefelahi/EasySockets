@@ -1,5 +1,6 @@
 ﻿using Stira.Socket.Interfaces;
 using Stira.Socket.Models;
+using Stira.Socket.Services;
 using Stira.WpfCore;
 using System;
 using System.Text;
@@ -15,16 +16,33 @@ namespace Stira.Socket.ViewModels
         /// <summary>
         /// Initialize the control view model
         /// </summary>
-        public ControlViewModel()
+        public ControlViewModel(IListenerTcp listenerTcp, ITcpClient tcpClient, IMcu mcu)
         {
-            Mcu = new Mcu
-            {
-                IP = "192.168.10.252",
-                PortTcp = 3030
-            };
             SendDeveloperCommand = new DelegateCommand(DeveloperCommandToMcuAsync);
             StartTcpListenerCommand = new DelegateCommand(ToggleTcpListener);
+            ConnectToTcpServerCommand = new DelegateCommand(ConnectToTcp);
+            Mcu = mcu;
+            ListenerTcp = listenerTcp;
+            TcpClient = tcpClient;
+        }
+
+        /// <summary>
+        /// Initialize the control view model
+        /// </summary>
+        public ControlViewModel()
+        {
+            SendDeveloperCommand = new DelegateCommand(DeveloperCommandToMcuAsync);
+            StartTcpListenerCommand = new DelegateCommand(ToggleTcpListener);
+            ConnectToTcpServerCommand = new DelegateCommand(ConnectToTcp);
+
+            Mcu = new Mcu()
+            {
+                IP = "192.168.10.252",
+                PortTcp = 3030,
+                PortUdp = 2020,
+            };
             ListenerTcp = new ListenerTcp();
+            TcpClient = new EasyTcpClient();
         }
 
         /// <summary>
@@ -64,37 +82,44 @@ namespace Stira.Socket.ViewModels
         public ICommand StartTcpListenerCommand { get; }
 
         /// <summary>
+        /// Connects to the server
+        /// </summary>
+        public ICommand ConnectToTcpServerCommand { get; }
+
+        /// <summary>
         /// TCP Listener
         /// </summary>
         public IListenerTcp ListenerTcp { get; }
 
         /// <summary>
-        /// This method converts hex string to byte array e.g. "010203" or "0x01 0x02 0x03" =&gt;
-        /// byte[3] with 01 02 03 values
+        /// TCP Client
         /// </summary>
-        /// <param name="hex"></param>
-        /// <returns>Byte Array</returns>
-        private static byte[] StringToByteArray(string hex)
-        {
-            hex = hex.Replace(" ", ""); //Remove Spacing
-            hex = hex.Replace("0x", ""); //Remove 0x for hex
-            hex = hex.Replace("0X", ""); //Remove 0X for hex
-            int NumberChars = hex.Length;
-            byte[] bytes = new byte[NumberChars / 2];
-            for (int i = 0; i < NumberChars; i += 2)
-            {
-                bytes[i / 2] = Convert.ToByte(hex.Substring(i, 2), 16);
-            }
+        public ITcpClient TcpClient { get; }
 
-            return bytes;
+        private void ConnectToTcp()
+        {
+            if (TcpClient.IsConnected)
+            {
+                TcpClient.Disconnect();
+            }
+            else
+            {
+                TcpClient.Connect();
+            }
+            OnPropertyChanged(nameof(TcpClient));
         }
 
         private void ToggleTcpListener()
         {
             if (ListenerTcp.IsListening)
+            {
                 ListenerTcp.StopListener();
+            }
             else
+            {
                 ListenerTcp.StartListener();
+            }
+
             OnPropertyChanged(nameof(ListenerTcp));
         }
 
@@ -105,15 +130,16 @@ namespace Stira.Socket.ViewModels
             {
                 if (IsHex)
                 {
-                    byteCommand = StringToByteArray(DeveloperCommand);
+                    byteCommand = Conversion.StringToByteArray(DeveloperCommand);
                 }
                 else
                 {
                     byteCommand = Encoding.ASCII.GetBytes(DeveloperCommand + "\n");
                 }
-                var reply = await Mcu.SendTcpAsync(byteCommand, true, fireOnSent: (isSent) =>
+
+                ReplyPacket reply = await Mcu.SendTcpAsync(byteCommand, true, fireOnSent: (isSent) =>
                 {
-                    var replyPacket = new ReplyPacket() { IsSent = isSent };
+                    ReplyPacket replyPacket = new ReplyPacket() { IsSent = isSent };
                     replyPacket.SetReply(byteCommand);
                     DevSentCommandInfo?.Invoke(this, replyPacket);
                 }).ConfigureAwait(false);
@@ -122,8 +148,9 @@ namespace Stira.Socket.ViewModels
                     DevReplyIncoming?.Invoke(this, reply);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                ListenerTcp.ExceptionHandler?.Invoke(this, ex);
             }
         }
     }
