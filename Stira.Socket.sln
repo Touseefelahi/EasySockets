@@ -3,9 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29519.87
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stira.Socket", "Stira.Socket\Stira.Socket.csproj", "{27E1DAD8-54D1-4A03-BA84-75496C0637B4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stira.Socket", "Stira.Socket\Stira.Socket.csproj", "{27E1DAD8-54D1-4A03-BA84-75496C0637B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stira.SocketTests", "Stira.SocketTests\Stira.SocketTests.csproj", "{85DD5AA3-7AA7-48F2-A5D0-BAEE7D1A0524}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stira.SocketTests", "Stira.SocketTests\Stira.SocketTests.csproj", "{85DD5AA3-7AA7-48F2-A5D0-BAEE7D1A0524}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6BA8E7FD-2302-4279-8CDB-74FF21D76E52}"
+	ProjectSection(SolutionItems) = preProject
+		readme.md = readme.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
