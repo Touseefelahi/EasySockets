@@ -4,77 +4,6 @@
         <name>Stira.Socket</name>
     </assembly>
     <members>
-        <member name="T:Stira.Socket.Interfaces.ITcpClient">
-            <summary>
-            TCP Client
-            </summary>
-        </member>
-        <member name="P:Stira.Socket.Interfaces.ITcpClient.DataEvent">
-            <summary>
-            Whenever it receives packet this event fires up
-            </summary>
-        </member>
-        <member name="P:Stira.Socket.Interfaces.ITcpClient.ExceptionHandler">
-            <summary>
-            This event fires up whenever there's an exception
-            </summary>
-        </member>
-        <member name="P:Stira.Socket.Interfaces.ITcpClient.Ip">
-            <summary>
-            Server IP
-            </summary>
-        </member>
-        <member name="P:Stira.Socket.Interfaces.ITcpClient.IsConnected">
-            <summary>
-            Is server is enabled/listening
-            </summary>
-        </member>
-        <member name="P:Stira.Socket.Interfaces.ITcpClient.Port">
-            <summary>
-            Server port
-            </summary>
-        </member>
-        <member name="M:Stira.Socket.Interfaces.ITcpClient.Connect(System.Byte[],System.Int32,System.Int32,System.Int32)">
-            <summary>
-            It will connect to the server
-            </summary>
-            <param name="endBytesIdentifier">
-            This identifies the end packet once receive these bytes it will push the packet. If null
-            then it pushes as it receives
-            </param>
-            <param name="connectionTimeoutMs"></param>
-            <param name="receiveTimeOut"></param>
-            <param name="transmissionTimeout"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Stira.Socket.Interfaces.ITcpClient.Connect(System.String,System.Int32,System.Byte[],System.Int32,System.Int32,System.Int32)">
-            <summary>
-            It will connect on the server with given IP and Port then listens on it
-            </summary>
-            <param name="ip">Server IP</param>
-            <param name="port">Server Port</param>
-            <param name="endBytesIdentifier">
-            This identifies the end packet once receive these bytes it will push the packet. If null
-            then it pushes as it receives
-            </param>
-            <param name="connectionTimeoutMs"></param>
-            <param name="receiveTimeOut"></param>
-            <param name="transmissionTimeout"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Stira.Socket.Interfaces.ITcpClient.Disconnect">
-            <summary>
-            Returns the current status of Listener
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Stira.Socket.Interfaces.ITcpClient.SendAsync(System.Byte[])">
-            <summary>
-            This will send the bytes to the server if connected
-            </summary>
-            <param name="bytesToSend"></param>
-            <returns>Sent Status</returns>
-        </member>
         <member name="T:Stira.Socket.Interfaces.IControlViewModel">
             <summary>
             View model for the socket. Use Mcu class to send TCP/UDP commands from the viewmodels.
@@ -297,6 +226,77 @@
             <param name="bytes2Send">Bytes to send to the given socket</param>
             <param name="replyRequired">Is reply required?</param>
             <returns>Reply packet</returns>
+        </member>
+        <member name="T:Stira.Socket.Interfaces.ITcpClient">
+            <summary>
+            TCP Client
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Interfaces.ITcpClient.DataEvent">
+            <summary>
+            Whenever it receives packet this event fires up
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Interfaces.ITcpClient.ExceptionHandler">
+            <summary>
+            This event fires up whenever there's an exception
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Interfaces.ITcpClient.Ip">
+            <summary>
+            Server IP
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Interfaces.ITcpClient.IsConnected">
+            <summary>
+            Is server is enabled/listening
+            </summary>
+        </member>
+        <member name="P:Stira.Socket.Interfaces.ITcpClient.Port">
+            <summary>
+            Server port
+            </summary>
+        </member>
+        <member name="M:Stira.Socket.Interfaces.ITcpClient.Connect(System.Byte[],System.Int32,System.Int32,System.Int32)">
+            <summary>
+            It will connect to the server
+            </summary>
+            <param name="endBytesIdentifier">
+            This identifies the end packet once receive these bytes it will push the packet. If null
+            then it pushes as it receives
+            </param>
+            <param name="connectionTimeoutMs"></param>
+            <param name="receiveTimeOut"></param>
+            <param name="transmissionTimeout"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Stira.Socket.Interfaces.ITcpClient.Connect(System.String,System.Int32,System.Byte[],System.Int32,System.Int32,System.Int32)">
+            <summary>
+            It will connect on the server with given IP and Port then listens on it
+            </summary>
+            <param name="ip">Server IP</param>
+            <param name="port">Server Port</param>
+            <param name="endBytesIdentifier">
+            This identifies the end packet once receive these bytes it will push the packet. If null
+            then it pushes as it receives
+            </param>
+            <param name="connectionTimeoutMs"></param>
+            <param name="receiveTimeOut"></param>
+            <param name="transmissionTimeout"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Stira.Socket.Interfaces.ITcpClient.Disconnect">
+            <summary>
+            Returns the current status of Listener
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Stira.Socket.Interfaces.ITcpClient.SendAsync(System.Byte[])">
+            <summary>
+            This will send the bytes to the server if connected
+            </summary>
+            <param name="bytesToSend"></param>
+            <returns>Sent Status</returns>
         </member>
         <member name="T:Stira.Socket.Interfaces.ITranceiver">
             <summary>
