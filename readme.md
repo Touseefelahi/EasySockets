@@ -17,7 +17,8 @@ Main advantage of this library is to use the events from the library<br>
 ## How To Use
 ### MCU
 This library is built in concept of MCU _Main Control Unit_. MCU is like a universal socket that
-can send and receive both TCP and UDP using different methods _Mcu.SendTcpAsync()_ and _Mcu.SendUdpAsync()_
+can send and receive both TCP and UDP using different methods _Mcu.SendTcpAsync()_ and _Mcu.SendUdpAsync()_<br>
+[See Implementation](https://github.com/Touseefelahi/EasySockets/blob/master/Stira.Socket/Models/Mcu.cs)
 ### Simple Tcp packet TxRx
 This piece of code will send TCP packet and waits for the reply from server. If there was
 any error you can check _ReplyPacket.Error_ property
@@ -55,8 +56,10 @@ any error you can check _ReplyPacket.Error_ property
     }
 
 #### FireOnSent
-If you want to know if packet is sent and don't want to wait for Rx/rxTimeout then use fireOnSent parameter delegate
-   
+If you want to know if packet is sent and don't want to wait for Rx/rxTimeout then use fireOnSent parameter delegate 
+<br>
+[See Implementation](https://github.com/Touseefelahi/EasySockets/blob/master/Stira.Socket/Models/Transceiver.cs#L117)
+        
     var byteCommand = new byte[]{0x01, 0x02, 0x03};
     ReplyPacket reply = await Mcu.SendTcpAsync(byteCommand, true, fireOnSent: (isSent) =>
                 {
@@ -67,8 +70,9 @@ If you want to know if packet is sent and don't want to wait for Rx/rxTimeout th
         DevReplyIncoming?.Invoke(this, reply);
     }
 ### TCP Server_Listener
-If you want to listen on some port (3030 in this example) on your system then use ListenerTcp Class as follows
-
+If you want to listen on some port (3030 in this example) on your system then use ListenerTcp Class as follows<br>
+[See Implementation](https://github.com/Touseefelahi/EasySockets/blob/master/Stira.Socket/Models/ListenerTcp.cs)
+    
     ListenerTcp = new ListenerTcp();
     ListenerTcp.Port = 3030; 
     ListenerTcp.DataEvent += DataIncoming;
@@ -87,7 +91,9 @@ If you want to listen on some port (3030 in this example) on your system then us
 
 ### TCP Client
 If you want to connect to the server (here 192.168.10.227 is server ip) and port number (4040 in the given example) <br>
-This example will fire the _DataEvent_ whenever there's a new packet
+This example will fire the _DataEvent_ whenever there's a new packet<br>
+[See Implementation](https://github.com/Touseefelahi/EasySockets/blob/master/Stira.Socket/Models/EasyTcpClient.cs)
+    
 
     ITcpClient tcpClient = new EasyTcpClient
     {
@@ -112,7 +118,9 @@ This example will fire the _DataEvent_ whenever there's a new packet
 ### Listen till endbyte
 If you want to connect to the server (here 192.168.10.227 is server ip) and port number (4040 in the given example) <br>
 This example will fire the _DataEvent_ whenever it will receive the given endbytes <br>
-The data will be accumulated till it receives the give endbytes (**0x0a 0x0b** in this example)
+The data will be accumulated till it receives the give endbytes (**0x0a 0x0b** in this example)<br>
+[See Implementation](https://github.com/Touseefelahi/EasySockets/blob/master/Stira.Socket/Models/EasyTcpClient.cs#L154)
+     
 
     ITcpClient tcpClient = new EasyTcpClient
     {
