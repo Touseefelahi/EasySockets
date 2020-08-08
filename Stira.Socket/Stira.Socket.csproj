@@ -18,9 +18,9 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>D:\VisualStudioProjects\Visual Studio 2019\Nuget Packages\Stira.Socket\Stira.Socket\Stira.Socket.xml</DocumentationFile>
-    <OutputPath>D:\VisualStudioProjects\Visual Studio 2019\Nuget Packages\All Packages\</OutputPath>
+    <DocumentationFile>C:\Users\Touseef\source\repos\EasySockets\Stira.Socket\Stira.Socket.xml</DocumentationFile>
   </PropertyGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8">
