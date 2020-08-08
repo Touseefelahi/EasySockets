@@ -6,27 +6,24 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
+    name: Update NuGet package
     steps:
-    - uses: actions/checkout@v2
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 3.1.101
-    - name: Create NuGet Package
-      run: dotnet pack -c Release /p:Version=${{ github.event.release.tag_name }} /p:PackageReleaseNotes="See https://github.com/Touseefelahi/EasySockets/releases/tag/${{ github.event.release.tag_name }}"
-      working-directory: ./Stira.Socket 
-    - name: Archive NuGet Package
-      uses: actions/upload-artifact@v1
-      with:
-        name: Stira Socket
-        path: ./obj/Release/Stira.Socket.${{ github.event.release.tag_name }}.nupkg
-    - name: Archive NuGet Package
-      uses: actions/upload-artifact@v1
-      with:
-        name: Publishing to Nuget
-        path: ./obj/Release/Stira.Socket.${{ github.event.release.tag_name }}.nupkg
-    - name: Publish Nuget Package
-      run: dotnet nuget push **/*.nupkg --api-key ${{ secrets.NUGET_KEY }} --source https://api.nuget.org/v3/index.json --no-symbols true
+
+      - name: Checkout repository
+        uses: actions/checkout@v1
+
+      - name: Setup .NET Core @ Latest
+        uses: actions/setup-dotnet@v1
+        with:
+          source-url: https://nuget.pkg.github.com/Touseefelahi/index.json
+        env:
+          NUGET_AUTH_TOKEN: ${{secrets.NUGET_KEY}}        
+
+      - name: Build solution and generate NuGet package
+        run: |  
+          cd <project>
+          dotnet pack -c Release -o out  
+
+      - name: Push generated package to GitHub registry
+        run: dotnet nuget push ./<project>/out/*.nupkg --skip-duplicate --no-symbols true
