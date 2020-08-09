@@ -4,6 +4,7 @@ using Stira.Socket.Services;
 using Stira.WpfCore;
 using System;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Stira.Socket.ViewModels

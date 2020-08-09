@@ -9,7 +9,7 @@
     <RepositoryUrl>https://github.com/Touseefelahi/EasySockets</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageTags>Sockets, TCP, UDP</PackageTags>
-    <Version>1.2.0</Version>
+    <Version>1.3.0</Version>
     <PackageProjectUrl>https://github.com/Touseefelahi/EasySockets</PackageProjectUrl>
     <PackageReleaseNotes>TCP Client Added (EasyTcpClient)
 </PackageReleaseNotes>

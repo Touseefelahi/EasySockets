@@ -94,6 +94,18 @@ If you want to connect to the server (here 192.168.10.227 is server ip) and port
 This example will fire the _DataEvent_ whenever there's a new packet<br>
 [See Implementation](https://github.com/Touseefelahi/EasySockets/blob/master/Stira.Socket/Models/EasyTcpClient.cs)
     
+ **Use Case 1 (Recommended)**
+
+    ITcpClient easySocket = new EasyTcpClient() { Ip = "192.168.10.227", Port = 4545 };
+    Task.Run(async () => await easySocket.ConnectAsync(dataReady).ConfigureAwait(false));
+     
+    private void dataReady(IReplyPacket obj)
+    {
+        List<byte> datareadyByte = obj.Reply;
+    }
+
+    
+**Use Case 2**
 
     ITcpClient tcpClient = new EasyTcpClient
     {
